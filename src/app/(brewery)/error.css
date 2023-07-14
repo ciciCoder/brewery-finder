@@ -1,0 +1,19 @@
+.error-code {
+  color: #000;
+  font-family: Sigmar One;
+  font-size: 200px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
+.error-message {
+  color: #000;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 204.436%; /* 49.065px */
+  letter-spacing: 9.24px;
+}

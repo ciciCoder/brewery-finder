@@ -1,4 +1,9 @@
 /** @type {import('tailwindcss').Config} */
+
+function withOpacity(varName) {
+  return ({ opacityValue }) => `rgba(var(${varName}), ${opacityValue})`
+}
+
 module.exports = {
   darkMode: ['class'],
   content: [
@@ -21,11 +26,13 @@ module.exports = {
         input: 'var(--input)',
         ring: 'var(--ring)',
         background: 'var(--background)',
-        foreground: 'var(--foreground)',
+        btn: {
+          bg: withOpacity('--btn-color'),
+          foreground: withOpacity('--btn-foreground'),
+        },
         primary: {
-          DEFAULT: ({ opacityValue }) =>
-            `rgba(var(--primary), ${opacityValue})`,
-          foreground: 'var(--primary-foreground)',
+          DEFAULT: withOpacity('--primary'),
+          foreground: withOpacity('--primary-foreground'),
         },
         secondary: {
           DEFAULT: 'var(--secondary)',
@@ -52,11 +59,11 @@ module.exports = {
           foreground: 'var(--card-foreground)',
         },
       },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
-      },
+      // borderRadius: {
+      //   lg: 'var(--radius)',
+      //   md: 'calc(var(--radius) - 2px)',
+      //   sm: 'calc(var(--radius) - 4px)',
+      // },
       keyframes: {
         'accordion-down': {
           from: { height: 0 },

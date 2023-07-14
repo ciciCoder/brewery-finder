@@ -27,7 +27,7 @@ export interface BreweryCardProps {
 
 function BreweryCard({ name, type, address, url }: BreweryCardProps) {
   return (
-    <div className="box-border flex w-[300px] flex-col gap-3 rounded-xl border border-primary bg-secondary px-8 py-7">
+    <div className="box-border flex  h-full w-full flex-col gap-3 rounded-xl border border-primary bg-secondary px-8 py-7">
       <BreweryCardField label="Name" value={name} />
       <BreweryCardField label="Type" value={type} />
       <BreweryCardField label="Address" value={address} />
