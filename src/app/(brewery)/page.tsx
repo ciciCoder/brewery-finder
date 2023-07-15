@@ -8,8 +8,6 @@ interface HomeProps {
   }
 }
 
-const revalidate = 10
-
 export default async function Home({ searchParams }: HomeProps) {
   const data = await fetchBrewery(searchParams)
   return (

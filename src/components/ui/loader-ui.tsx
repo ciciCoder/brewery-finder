@@ -12,7 +12,7 @@ function LoaderUI({ className, ...attrs }: JSX.IntrinsicElements['div']) {
       {...attrs}
     >
       <div className="flex gap-1">
-        <h1 className="text-7xl text-primary">Loading</h1>
+        <h1 className="animate-bounce text-7xl text-primary">Loading</h1>
         <Image
           width={100}
           height={100}

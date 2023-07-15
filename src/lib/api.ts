@@ -10,7 +10,7 @@ export const fetchBrewery = async ({ query, page }: FetchBreweryParams) => {
   const params = new URLSearchParams()
 
   params.append('per_page', '8')
-  page && params.append('page', page)
+  params.append('page', page ?? '1')
   query && params.append('query', query)
 
   const queryString = params.toString()

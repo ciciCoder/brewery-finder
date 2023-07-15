@@ -34,7 +34,7 @@ const BrewerySearch = ({
   }
 
   return (
-    <div className="flex justify-between rounded-full border border-primary pl-3 shadow-md">
+    <div className="flex justify-between rounded-full border border-primary bg-white pl-3 shadow-md">
       <Input
         {...attrs}
         onChange={onChangeHandler}

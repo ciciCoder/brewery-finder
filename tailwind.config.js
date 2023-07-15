@@ -33,10 +33,18 @@ module.exports = {
         primary: {
           DEFAULT: withOpacity('--primary'),
           foreground: withOpacity('--primary-foreground'),
+          dark: {
+            DEFAULT: withOpacity('--primary-dark'),
+            foreground: withOpacity('--primary-dark-foreground'),
+          },
         },
         secondary: {
-          DEFAULT: 'var(--secondary)',
-          foreground: 'var(--secondary-foreground)',
+          DEFAULT: withOpacity('--secondary'),
+          foreground: withOpacity('--secondary-foreground'),
+        },
+        tertiary: {
+          DEFAULT: withOpacity('--tertiary'),
+          foreground: withOpacity('--tertiary-foreground'),
         },
         destructive: {
           DEFAULT: 'var(--destructive)',

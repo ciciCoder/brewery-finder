@@ -1,4 +1,5 @@
 import BreweryHeader from '@/components/core/brewery-header'
+import Image from 'next/image'
 
 export default function BreweryLayout({
   children,
@@ -6,11 +7,12 @@ export default function BreweryLayout({
   children: React.ReactNode
 }) {
   return (
-    <div>
+    <div className="flex flex-col gap-5 bg-slate-50">
       <BreweryHeader />
-      <div className="box-border h-[calc(100vh-80px)] overflow-y-auto py-5">
-        <div className="m-auto max-w-[1440px] px-[90px]">{children}</div>
+      <div className="box-border h-[calc(100vh-200px)]">
+        <div className="m-auto h-full max-w-[1440px] px-[90px]">{children}</div>
       </div>
+      <div className="h-[80px] w-full bg-primary"></div>
     </div>
   )
 }

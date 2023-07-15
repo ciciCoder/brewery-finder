@@ -13,7 +13,7 @@ export default async function ShowBrewery({
   const data = await fetchOneBrewery(breweryId)
 
   return (
-    <main>
+    <main className="h-full w-full">
       <BreweryDetail data={data} />
     </main>
   )
