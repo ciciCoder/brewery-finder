@@ -9,7 +9,7 @@ export default function BreweryLayout({
     <div>
       <BreweryHeader />
       <div className="box-border h-[calc(100vh-80px)] overflow-y-auto py-5">
-        <div className="m-auto max-w-[1440px]">{children}</div>
+        <div className="m-auto max-w-[1440px] px-[90px]">{children}</div>
       </div>
     </div>
   )

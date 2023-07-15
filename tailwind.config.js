@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 function withOpacity(varName) {
-  return ({ opacityValue }) => `rgba(var(${varName}), ${opacityValue})`
+  return ({ opacityValue }) => `rgba(var(${varName}), ${opacityValue ?? 1})`
 }
 
 module.exports = {

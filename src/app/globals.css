@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Itim&family=Sigmar+One&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Itim&family=Sigmar+One&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -67,5 +66,16 @@
   .btn-primary {
     --btn-color: var(--primary);
     --btn-foreground: var(--primary-foreground);
+  }
+
+  .btn-prev {
+    text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    font-family: Indie Flower;
+    font-size: 128px;
+    font-style: normal;
+    font-weight: 400;
+    transition-duration: 0.2s;
+    line-height: 100%; /* 128px */
+    @apply text-primary hover:text-opacity-50;
   }
 }

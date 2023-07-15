@@ -124,6 +124,7 @@ function BreweryList({ list }: BreweryListProps) {
         {list.map((brewery) => (
           <BreweryCard
             key={brewery.id}
+            id={brewery.id}
             name={brewery.name}
             type={brewery.brewery_type}
             address={getBreweryAddress(brewery)}
