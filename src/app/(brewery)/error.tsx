@@ -1,6 +1,5 @@
 'use client' // Error components must be Client Components
 
-import { useEffect } from 'react'
 import './error.css'
 
 export default function Error({ reset }: { error: Error; reset: () => void }) {

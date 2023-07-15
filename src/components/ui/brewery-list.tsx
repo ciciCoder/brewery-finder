@@ -1,10 +1,10 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import BrewerySearch from './brewery-search'
 import BreweryCard from './brewery-card'
 import { Button } from './button'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 
 export interface Brewery {
@@ -20,13 +20,32 @@ export interface Brewery {
 
 export interface BreweryListProps {
   list: Brewery[]
-  page: number
 }
 
-function BreweryList({ list, page }: BreweryListProps) {
+type LoadingState = {
+  next: boolean
+  prev: boolean
+  search: boolean
+}
+
+function BreweryList({ list }: BreweryListProps) {
   const router = useRouter()
-  const [nextLoading, setNextLoading] = useState(false)
-  const [prevLoading, setPrevLoading] = useState(false)
+  const searchParams = useSearchParams()
+  const [loading, setLoading] = useReducer(
+    (prev: LoadingState, next: { [key in keyof LoadingState]?: boolean }) => ({
+      ...prev,
+      ...next,
+    }),
+    {
+      next: false,
+      prev: false,
+      search: false,
+    },
+  )
+
+  const queryParams = new URLSearchParams(searchParams.toString())
+  const query = searchParams.get('query') ?? ''
+  const page = Number(searchParams.get('page') ?? 1)
 
   const getBreweryAddress = (brewery: Brewery) =>
     [
@@ -36,22 +55,36 @@ function BreweryList({ list, page }: BreweryListProps) {
       brewery.country,
     ].join(', ')
 
+  const isLoading = (Object.keys(loading) as Array<keyof typeof loading>).some(
+    (item) => loading[item],
+  )
   const handleNext = () => {
-    if (prevLoading) return
-    setNextLoading(true)
-    router.push(`/?page=${page + 1}`)
+    if (isLoading) return
+    setLoading({ next: true })
+    queryParams.set('page', String(page + 1))
+    router.push(`/?${queryParams}`)
   }
 
   const handlePrev = () => {
-    if (nextLoading) return
-    setPrevLoading(true)
-    router.push(`/?page=${page - 1}`)
+    if (isLoading) return
+    setLoading({ prev: true })
+    queryParams.set('page', String(page - 1))
+    router.push(`/?${queryParams}`)
+  }
+
+  const handleSearch = (searchVal: string) => {
+    if (isLoading) return
+    if (searchVal === searchParams.get('query')) return
+    queryParams.set('page', '1')
+    queryParams.set('query', searchVal)
+    if (!searchVal) queryParams.delete('query')
+    setLoading({ search: true })
+    router.push(`/?${queryParams}`)
   }
 
   useEffect(() => {
-    setNextLoading(false)
-    setPrevLoading(false)
-  }, [page])
+    setLoading({ prev: false, next: false, search: false })
+  }, [list])
 
   const loaderSVG = (text: string, loading: boolean) =>
     loading ? (
@@ -67,14 +100,22 @@ function BreweryList({ list, page }: BreweryListProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
-        <BrewerySearch />
+        <div>
+          <BrewerySearch
+            value={query}
+            onClick={handleSearch}
+            loading={loading.search}
+          />
+        </div>
         <div className="flex gap-1">
-          <Button className="btn btn-primary" onClick={handleNext}>
-            {loaderSVG('Next', nextLoading)}
-          </Button>
+          {list.length >= 8 && (
+            <Button className="btn btn-primary" onClick={handleNext}>
+              {loaderSVG('Next', loading.next)}
+            </Button>
+          )}
           {page > 1 && (
             <Button className="btn btn-primary" onClick={handlePrev}>
-              {loaderSVG('Prev', prevLoading)}
+              {loaderSVG('Prev', loading.prev)}
             </Button>
           )}
         </div>

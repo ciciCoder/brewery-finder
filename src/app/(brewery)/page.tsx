@@ -1,21 +1,20 @@
 import BreweryList, { Brewery } from '@/components/ui/brewery-list'
-import axios from 'axios'
+import { fetchBrewery } from '@/lib/api'
 
 interface HomeProps {
   searchParams: {
     page: string
+    query: string
   }
 }
 
+const revalidate = 10
+
 export default async function Home({ searchParams }: HomeProps) {
-  const { page = '1' } = searchParams
-  const { data } = await axios.get<Brewery[]>(
-    'https://api.openbrewerydb.org/v1/breweries',
-    { params: { page, per_page: 8 } },
-  )
+  const data = await fetchBrewery(searchParams)
   return (
     <main>
-      <BreweryList list={data} page={Number(page)} />
+      <BreweryList list={data} />
     </main>
   )
 }
