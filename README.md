@@ -1,3 +1,9 @@
+<h1>What's New (1.0)</h1>
+
+- Added brewery list
+- Added brewery list search
+- Added brewery Initial Design
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
