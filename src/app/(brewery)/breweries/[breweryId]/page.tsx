@@ -7,7 +7,7 @@ export interface ShowBreweryProps {
   }
 }
 
-export default async function ShowBrewery({
+export default async function ShowBreweryPage({
   params: { breweryId },
 }: ShowBreweryProps) {
   const data = await fetchOneBrewery(breweryId)

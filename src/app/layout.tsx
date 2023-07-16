@@ -1,3 +1,4 @@
+import { TooltipProvider } from '@/components/ui/tooltip'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Itim } from 'next/font/google'
@@ -16,7 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={itim.className}>{children}</body>
+      <body className={itim.className}>
+        <TooltipProvider>{children}</TooltipProvider>
+      </body>
     </html>
   )
 }

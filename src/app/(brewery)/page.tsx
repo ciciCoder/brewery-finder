@@ -8,7 +8,7 @@ interface HomeProps {
   }
 }
 
-export default async function Home({ searchParams }: HomeProps) {
+export default async function HomePage({ searchParams }: HomeProps) {
   const data = await fetchBrewery(searchParams)
   return (
     <main>

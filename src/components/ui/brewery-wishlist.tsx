@@ -1,11 +1,17 @@
 'use client'
 
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 import BrewerySearch from './brewery-search'
 import BreweryCard from './brewery-card'
-import { Button } from './button'
-import { useRouter, useSearchParams } from 'next/navigation'
-import ThreeDotsAnimated from '../svg/three-dots-animated'
+import { useAppSelector } from '@/redux/store'
+import 'animate.css'
 
 export interface Brewery {
   id: string
@@ -29,102 +35,62 @@ type LoadingState = {
 }
 
 function BreweryWishlist({ list }: BreweryWishlistProps) {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [loading, setLoading] = useReducer(
-    (prev: LoadingState, next: { [key in keyof LoadingState]?: boolean }) => ({
-      ...prev,
-      ...next,
-    }),
-    {
-      next: false,
-      prev: false,
-      search: false,
-    },
+  const wishlist = useAppSelector((state) => state.wishlist)
+  const wishlistSet = useMemo(() => new Set([...wishlist]), [wishlist])
+  const [search, setSearch] = useState('')
+
+  const getBreweryAddress = useCallback(
+    (brewery: Brewery) =>
+      [brewery.address_1, brewery.city, brewery.state_province, brewery.country]
+        .filter((item) => item)
+        .join(', '),
+    [],
   )
 
-  const queryParams = new URLSearchParams(searchParams.toString())
-  const query = searchParams.get('query') ?? ''
-  const page = Number(searchParams.get('page') ?? 1)
-
-  const getBreweryAddress = (brewery: Brewery) =>
-    [
-      brewery.address_1,
-      brewery.city,
-      brewery.state_province,
-      brewery.country,
-    ].join(', ')
-
-  const isLoading = (Object.keys(loading) as Array<keyof typeof loading>).some(
-    (item) => loading[item],
+  const filteredWishlist = useMemo(
+    () =>
+      list.filter((item) => {
+        if (!wishlistSet.has(item.id)) return false
+        const address = getBreweryAddress(item)
+        const keyword = new RegExp(search, 'i')
+        const keyword2 = new RegExp(search, 'i')
+        if (keyword.test(item.name) || keyword2.test(address)) return true
+        return false
+      }),
+    [search, getBreweryAddress, list, wishlistSet],
   )
-  const handleNext = () => {
-    if (isLoading) return
-    setLoading({ next: true })
-    queryParams.set('page', String(page + 1))
-    router.push(`/?${queryParams}`)
-  }
-
-  const handlePrev = () => {
-    if (isLoading) return
-    setLoading({ prev: true })
-    queryParams.set('page', String(page - 1))
-    router.push(`/?${queryParams}`)
-  }
 
   const handleSearch = (searchVal: string) => {
-    if (isLoading) return
-    if (searchVal === searchParams.get('query')) return
-    queryParams.set('page', '1')
-    queryParams.set('query', searchVal)
-    if (!searchVal) queryParams.delete('query')
-    setLoading({ search: true })
-    router.push(`/?${queryParams}`)
+    console.log('handle search')
+    setSearch(searchVal)
   }
 
-  useEffect(() => {
-    setLoading({ prev: false, next: false, search: false })
-  }, [list])
-
-  const loaderSVG = (text: string, loading: boolean) =>
-    loading ? (
-      <ThreeDotsAnimated className="fill-primary-foreground" width={24} />
-    ) : (
-      text
-    )
-
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex min-h-[inherit] flex-col gap-4">
       <div className="flex justify-between">
-        <div>
-          <BrewerySearch
-            value={query}
-            onClick={handleSearch}
-            loading={loading.search}
-          />
-        </div>
-        <div className="flex gap-1">
-          {list.length >= 8 && (
-            <Button className="btn btn-primary" onClick={handleNext}>
-              {loaderSVG('Next', loading.next)}
-            </Button>
-          )}
-          {page > 1 && (
-            <Button className="btn btn-primary" onClick={handlePrev}>
-              {loaderSVG('Prev', loading.prev)}
-            </Button>
-          )}
+        <div className="w-full sm:w-auto">
+          <BrewerySearch onClick={handleSearch} />
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-2">
-        {list.map((brewery) => (
+      {!filteredWishlist.length && (
+        <div className="min-h-[inherit]">
+          <span className="text-6xl text-muted-foreground">
+            No Records Found...
+          </span>
+        </div>
+      )}
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {filteredWishlist.map((brewery, index) => (
           <BreweryCard
             key={brewery.id}
             id={brewery.id}
+            className="animate__animated animate__flipInY sm:animate-none"
             name={brewery.name}
+            style={{ animationDelay: `${0.1 * index}s` } as React.CSSProperties}
             type={brewery.brewery_type}
             address={getBreweryAddress(brewery)}
             url={brewery.website_url}
+            isWish={wishlistSet.has(brewery.id)}
           />
         ))}
       </div>
