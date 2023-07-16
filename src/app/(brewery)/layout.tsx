@@ -1,5 +1,5 @@
 import BreweryHeader from '@/components/core/brewery-header'
-import Image from 'next/image'
+import LoaderUI from '@/components/ui/loader-ui'
 
 export default function BreweryLayout({
   children,

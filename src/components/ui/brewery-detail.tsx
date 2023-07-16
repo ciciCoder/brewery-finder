@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
-import React from 'react'
-import './brewery-detail.css'
+import React, { useMemo } from 'react'
 import Image from 'next/image'
 import { Indie_Flower, Inter, Sigmar_One } from 'next/font/google'
 import { cx } from 'class-variance-authority'
@@ -15,6 +14,9 @@ import {
   Globe,
   ArrowLeft,
 } from 'lucide-react'
+import BreweryField from './brewery-field'
+import 'animate.css'
+import BreweryMap from './brewery-map'
 
 const sigmaOne = Sigmar_One({ weight: '400', subsets: ['latin'] })
 const inter = Inter({ subsets: ['latin'] })
@@ -39,11 +41,11 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
   return (
     <div
       className={cx(
-        'BreweryDetail flex h-full w-full flex-col justify-center gap-3',
+        'BreweryDetail flex h-full w-full flex-col justify-center gap-3 overflow-hidden',
         inter.className,
       )}
     >
-      <div className="relative flex w-full items-center justify-evenly rounded-lg border border-primary bg-gradient-to-r from-primary-dark from-50% to-primary-dark-foreground to-50% p-5 shadow-md">
+      <div className="animate__animated animate__fadeInDown relative flex w-full items-center justify-evenly rounded-lg border border-primary bg-gradient-to-b from-blue-900 from-50% to-tertiary to-50% p-5 shadow-md">
         <Link
           className={cx(
             'btn-prev w-[150px] text-primary-foreground',
@@ -55,7 +57,7 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
         </Link>
         <span
           className={cx(
-            'title-header line-clamp-1 uppercase',
+            'line-clamp-1 text-[64px] font-normal uppercase not-italic leading-[normal] text-transparent text-white underline drop-shadow-md',
             sigmaOne.className,
           )}
         >
@@ -73,61 +75,56 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
       </div>
       <div className="relative flex w-full gap-3">
         <div className="grid w-full grid-cols-2 gap-3">
-          <div className="text-field">
-            <div className="text-label">
-              <Beer />
-              <span>Brewery type </span>
-            </div>
-            <span className="text-detail">{data.brewery_type}</span>
-          </div>
-          <div className="text-field">
-            <div className="text-label">
-              <MapPin />
-              <span>Street</span>
-            </div>
-            <span className="text-detail">{data.address_1}</span>
-          </div>
-          <div className="text-field">
-            <span className="text-label">
-              <Building />
-              <span>City</span>
-            </span>
-            <span className="text-detail">{data.city}</span>
-          </div>
-          <div className="text-field">
-            <div className="text-label">
-              <Mountain />
-              <span>State/Province</span>
-            </div>
-            <span className="text-detail">{data.state_province}</span>
-          </div>
-          <div className="text-field">
-            <div className="text-label">
-              <Building2 />
-              <span>Country</span>
-            </div>
-            <span className="text-detail">{data.state_province}</span>
-          </div>
-          <div className="text-field">
-            <div className="text-label">
-              <Phone />
-              <span>Phone</span>
-            </div>
-            <span className="text-detail">{data.phone}</span>
-          </div>
-          <div className="text-field col-span-2">
-            <div className="text-label">
-              <Globe />
-              <span>Website</span>
-            </div>
-            <span className="text-detail">
+          <BreweryField
+            label="Brewery Type"
+            className="animate__animated animate__fadeInLeft"
+            fieldValue={data.brewery_type}
+            labelIcon={<Beer />}
+            style={{ animationDelay: '0.4s' }}
+          />
+          <BreweryField
+            label="City"
+            className="animate__animated animate__fadeInLeft"
+            fieldValue={data.city}
+            labelIcon={<Building />}
+            style={{ animationDelay: '0.3s' }}
+          />
+          <BreweryField
+            label="State/Province"
+            className="animate__animated animate__fadeInLeft"
+            fieldValue={data.state_province}
+            labelIcon={<Mountain />}
+            style={{ animationDelay: '0.2s' }}
+          />
+          <BreweryField
+            label="Country"
+            className="animate__animated animate__fadeInLeft"
+            fieldValue={data.country}
+            labelIcon={<Building2 />}
+            style={{ animationDelay: '0.1s' }}
+          />
+          <BreweryField
+            label="Phone"
+            className="animate__animated animate__fadeInLeft"
+            fieldValue={data.phone}
+            labelIcon={<Phone />}
+          />
+          <BreweryField
+            label="Website"
+            className="animate__animated animate__fadeInLeft"
+            labelIcon={<Globe />}
+            fieldValue={
               <a href={data.website_url} className="text-blue-900 underline">
                 {data.website_url}
               </a>
-            </span>
-          </div>
+            }
+          />
         </div>
-        <div className="w-1/2 cursor-pointer rounded-lg bg-tertiary shadow-md duration-1000"></div>
+        <div className="animate__animated animate__fadeInBottomRight flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-tertiary shadow-md duration-1000">
+          <BreweryMap
+            center={{ lat: Number(data.latitude), lng: Number(data.longitude) }}
+          />
+        </div>
       </div>
     </div>
   )
