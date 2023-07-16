@@ -4,6 +4,8 @@ import Image from 'next/image'
 import React, { useImperativeHandle, useRef } from 'react'
 import { Input } from './input'
 import { Button } from './button'
+import { Search } from 'lucide-react'
+import ThreeDotsAnimated from '../svg/three-dots-animated'
 
 type BrewerySearchProps = Omit<
   JSX.IntrinsicElements['input'],
@@ -49,19 +51,9 @@ const BrewerySearch = ({
         onClick={onClickHandler}
       >
         {loading ? (
-          <Image
-            src="/loaders/three-dots-white.svg"
-            alt="loader"
-            width={24}
-            height={24}
-          />
+          <ThreeDotsAnimated className="fill-primary-foreground" r={24} />
         ) : (
-          <Image
-            src="/icon/search-white.svg"
-            alt="search-icon"
-            width={24}
-            height={24}
-          />
+          <Search />
         )}
       </Button>
     </div>

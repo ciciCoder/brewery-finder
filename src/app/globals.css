@@ -29,7 +29,7 @@
 
     --radius: 0.5rem;
 
-    --primary: 201, 110, 18;
+    --primary: 30, 58, 138;
     --primary-foreground: 255, 255, 255;
 
     --secondary: 255, 248, 151;
@@ -43,6 +43,8 @@
 
     --tertiary: 246, 193, 1;
     --tertiary-foreground: 255, 255, 255;
+
+    --updown-threepoints-offset: 0px;
   }
 
   body {
