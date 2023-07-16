@@ -2,8 +2,8 @@ import { BreweryDetail } from '@/components/ui/brewery-detail'
 import { Brewery } from '@/components/ui/brewery-list'
 
 interface FetchBreweryParams {
-  page: string
-  query: string
+  page?: string
+  query?: string
 }
 
 export const fetchBrewery = async ({ query, page }: FetchBreweryParams) => {
