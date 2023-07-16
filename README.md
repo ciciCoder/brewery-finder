@@ -1,18 +1,21 @@
+<h1>What's New (1.2)</h1>
+
+- Added wishlist
+- Added wishlist search filter
+- updated brewery final design
+
 <h1>What's New (1.1)</h1>
 
 - Added brewery view
 - Added brewery mapping
-- Added brewery Initial Design 2
+- updated brewery Initial Design 2
 
 <h1>Release (1.0)</h1>
 
 - Added brewery list
 - Added brewery list search
-- Added brewery Initial Design
+- updated brewery Initial Design
 
-<h1>Hotfix</h1>
-- set  enableUndici to false
-<hr>
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

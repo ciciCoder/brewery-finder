@@ -15,10 +15,10 @@ function LoaderUI({ className, ...attrs }: JSX.IntrinsicElements['div']) {
       {...attrs}
     >
       <div className="flex gap-1">
-        <h1 className="flex text-7xl text-primary">
+        <h1 className="flex text-6xl text-primary">
           {loadingLetters.map((letter, index) => (
             <div
-              key={letter}
+              key={index}
               className="animate-updown-threepoints"
               style={
                 {

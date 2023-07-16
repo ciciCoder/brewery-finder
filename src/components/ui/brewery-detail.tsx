@@ -13,6 +13,7 @@ import {
   Phone,
   Globe,
   ArrowLeft,
+  Factory,
 } from 'lucide-react'
 import BreweryField from './brewery-field'
 import 'animate.css'
@@ -45,7 +46,7 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
         inter.className,
       )}
     >
-      <div className="animate__animated animate__fadeInDown relative flex w-full items-center justify-evenly rounded-lg border border-primary bg-gradient-to-b from-blue-900 from-50% to-tertiary to-50% p-5 shadow-md">
+      <div className="animate__animated animate__fadeInDown relative hidden w-full items-center justify-evenly rounded-lg border border-primary bg-gradient-to-b from-blue-900 from-50% to-tertiary to-50% p-5 shadow-md sm:flex">
         <Link
           className={cx(
             'btn-prev w-[150px] text-primary-foreground',
@@ -73,46 +74,55 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
           />
         </div>
       </div>
-      <div className="relative flex w-full gap-3">
-        <div className="grid w-full grid-cols-2 gap-3">
+      <div className="relative flex w-full flex-col-reverse gap-3 sm:flex-row">
+        <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
+          <BreweryField
+            label="Company Name"
+            className="animate__animated animate__fadeInLeft"
+            fieldValue={data.name}
+            labelIcon={<Factory />}
+            style={{ animationDelay: '0.1s' }}
+          />
           <BreweryField
             label="Brewery Type"
             className="animate__animated animate__fadeInLeft"
             fieldValue={data.brewery_type}
             labelIcon={<Beer />}
-            style={{ animationDelay: '0.4s' }}
+            style={{ animationDelay: '0.1s' }}
           />
           <BreweryField
             label="City"
             className="animate__animated animate__fadeInLeft"
             fieldValue={data.city}
             labelIcon={<Building />}
-            style={{ animationDelay: '0.3s' }}
+            style={{ animationDelay: '0.2s' }}
           />
           <BreweryField
             label="State/Province"
             className="animate__animated animate__fadeInLeft"
             fieldValue={data.state_province}
             labelIcon={<Mountain />}
-            style={{ animationDelay: '0.2s' }}
+            style={{ animationDelay: '0.3s' }}
           />
           <BreweryField
             label="Country"
             className="animate__animated animate__fadeInLeft"
             fieldValue={data.country}
             labelIcon={<Building2 />}
-            style={{ animationDelay: '0.1s' }}
+            style={{ animationDelay: '0.4s' }}
           />
           <BreweryField
             label="Phone"
             className="animate__animated animate__fadeInLeft"
             fieldValue={data.phone}
             labelIcon={<Phone />}
+            style={{ animationDelay: '0.5s' }}
           />
           <BreweryField
             label="Website"
             className="animate__animated animate__fadeInLeft"
             labelIcon={<Globe />}
+            style={{ animationDelay: '0.6s' }}
             fieldValue={
               <a href={data.website_url} className="text-blue-900 underline">
                 {data.website_url}
@@ -120,7 +130,7 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
             }
           />
         </div>
-        <div className="animate__animated animate__fadeInBottomRight flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-tertiary shadow-md duration-1000">
+        <div className="animate__animated sm:animate__fadeInBottomRight flex h-[200px] w-full cursor-pointer items-center justify-center rounded-lg bg-tertiary shadow-md duration-1000 sm:h-auto sm:w-1/2">
           <BreweryMap
             center={{ lat: Number(data.latitude), lng: Number(data.longitude) }}
           />

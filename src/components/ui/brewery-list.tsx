@@ -1,11 +1,13 @@
 'use client'
 
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import BrewerySearch from './brewery-search'
 import BreweryCard from './brewery-card'
 import { Button } from './button'
 import { useRouter, useSearchParams } from 'next/navigation'
 import ThreeDotsAnimated from '../svg/three-dots-animated'
+import { useAppSelector } from '@/redux/store'
+import Link from 'next/link'
 
 export interface Brewery {
   id: string
@@ -42,18 +44,17 @@ function BreweryList({ list }: BreweryListProps) {
       search: false,
     },
   )
+  const wishlist = useAppSelector((state) => state.wishlist)
+  const wishlistSet = useMemo(() => new Set([...wishlist]), [wishlist])
 
   const queryParams = new URLSearchParams(searchParams.toString())
   const query = searchParams.get('query') ?? ''
   const page = Number(searchParams.get('page') ?? 1)
 
   const getBreweryAddress = (brewery: Brewery) =>
-    [
-      brewery.address_1,
-      brewery.city,
-      brewery.state_province,
-      brewery.country,
-    ].join(', ')
+    [brewery.address_1, brewery.city, brewery.state_province, brewery.country]
+      .filter((item) => item)
+      .join(', ')
 
   const isLoading = (Object.keys(loading) as Array<keyof typeof loading>).some(
     (item) => loading[item],
@@ -95,8 +96,8 @@ function BreweryList({ list }: BreweryListProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-between">
-        <div>
+      <div className="flex flex-col justify-between gap-2 sm:flex-row">
+        <div className="w-full sm:w-auto">
           <BrewerySearch
             value={query}
             onClick={handleSearch}
@@ -116,7 +117,14 @@ function BreweryList({ list }: BreweryListProps) {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-2">
+      {!list.length && (
+        <div className="min-h-[inherit]">
+          <span className="text-6xl text-muted-foreground">
+            No Records Found...
+          </span>
+        </div>
+      )}
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {list.map((brewery) => (
           <BreweryCard
             key={brewery.id}
@@ -125,6 +133,7 @@ function BreweryList({ list }: BreweryListProps) {
             type={brewery.brewery_type}
             address={getBreweryAddress(brewery)}
             url={brewery.website_url}
+            isWish={wishlistSet.has(brewery.id)}
           />
         ))}
       </div>

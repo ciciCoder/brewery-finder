@@ -27,7 +27,6 @@ const BrewerySearch = ({
   const inputRef = useRef<HTMLInputElement>(null)
 
   const onChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    console.log(e.target.value)
     onChange?.(inputRef?.current?.value ?? '')
   }
 
