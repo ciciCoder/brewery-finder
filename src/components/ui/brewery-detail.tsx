@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import BreweryField from './brewery-field'
 import 'animate.css'
+import BreweryMap from './brewery-map'
 
 const sigmaOne = Sigmar_One({ weight: '400', subsets: ['latin'] })
 const inter = Inter({ subsets: ['latin'] })
@@ -119,7 +120,11 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
             }
           />
         </div>
-        <div className="animate__animated animate__fadeInBottomRight w-1/2 cursor-pointer rounded-lg bg-tertiary shadow-md duration-1000"></div>
+        <div className="animate__animated animate__fadeInBottomRight flex w-1/2 cursor-pointer items-center justify-center rounded-lg bg-tertiary shadow-md duration-1000">
+          <BreweryMap
+            center={{ lat: Number(data.latitude), lng: Number(data.longitude) }}
+          />
+        </div>
       </div>
     </div>
   )
