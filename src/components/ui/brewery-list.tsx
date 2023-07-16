@@ -5,7 +5,7 @@ import BrewerySearch from './brewery-search'
 import BreweryCard from './brewery-card'
 import { Button } from './button'
 import { useRouter, useSearchParams } from 'next/navigation'
-import Image from 'next/image'
+import ThreeDotsAnimated from '../svg/three-dots-animated'
 
 export interface Brewery {
   id: string
@@ -88,15 +88,11 @@ function BreweryList({ list }: BreweryListProps) {
 
   const loaderSVG = (text: string, loading: boolean) =>
     loading ? (
-      <Image
-        src="/loaders/three-dots-white.svg"
-        alt="loader"
-        width={24}
-        height={24}
-      />
+      <ThreeDotsAnimated className="fill-primary-foreground" width={24} />
     ) : (
       text
     )
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
@@ -124,6 +120,7 @@ function BreweryList({ list }: BreweryListProps) {
         {list.map((brewery) => (
           <BreweryCard
             key={brewery.id}
+            id={brewery.id}
             name={brewery.name}
             type={brewery.brewery_type}
             address={getBreweryAddress(brewery)}

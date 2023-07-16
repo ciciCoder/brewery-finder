@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 function withOpacity(varName) {
-  return ({ opacityValue }) => `rgba(var(${varName}), ${opacityValue})`
+  return ({ opacityValue }) => `rgba(var(${varName}), ${opacityValue ?? 1})`
 }
 
 module.exports = {
@@ -33,10 +33,18 @@ module.exports = {
         primary: {
           DEFAULT: withOpacity('--primary'),
           foreground: withOpacity('--primary-foreground'),
+          dark: {
+            DEFAULT: withOpacity('--primary-dark'),
+            foreground: withOpacity('--primary-dark-foreground'),
+          },
         },
         secondary: {
-          DEFAULT: 'var(--secondary)',
-          foreground: 'var(--secondary-foreground)',
+          DEFAULT: withOpacity('--secondary'),
+          foreground: withOpacity('--secondary-foreground'),
+        },
+        tertiary: {
+          DEFAULT: withOpacity('--tertiary'),
+          foreground: withOpacity('--tertiary-foreground'),
         },
         destructive: {
           DEFAULT: 'var(--destructive)',
@@ -73,8 +81,17 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
+        'updown-threepoints': {
+          '0%': { transform: 'translateY(var(--updown-threepoints-offset))' },
+          '50%': {
+            transform:
+              'translateY(calc(-1 * var(--updown-threepoints-offset)))',
+          },
+          '100%': { transform: 'translateY(var(--updown-threepoints-offset))' },
+        },
       },
       animation: {
+        'updown-threepoints': 'updown-threepoints 1s infinite ease-in-out',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },

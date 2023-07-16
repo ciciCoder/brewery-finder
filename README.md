@@ -1,4 +1,10 @@
-<h1>What's New (1.0)</h1>
+<h1>What's New (1.1)</h1>
+
+- Added brewery view
+- Added brewery mapping
+- Added brewery Initial Design 2
+
+<h1>Release (1.0)</h1>
 
 - Added brewery list
 - Added brewery list search
