@@ -15,6 +15,7 @@ import 'animate.css'
 import BreweryMap from './brewery-map'
 import { NavLink } from 'react-router-dom'
 import { Brewery } from '@/api/brewery.api'
+import { publicPath } from '@/lib/utils'
 
 function BreweryDetail({ data }: { data: Brewery }) {
   return (
@@ -37,7 +38,7 @@ function BreweryDetail({ data }: { data: Brewery }) {
           <img
             width={150}
             className="object-cover drop-shadow-md"
-            src="/beer.svg"
+            src={publicPath('beer.svg')}
             height={150}
             alt="beer"
           />
