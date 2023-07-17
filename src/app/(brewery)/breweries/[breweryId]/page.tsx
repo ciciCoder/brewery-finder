@@ -7,6 +7,8 @@ export interface ShowBreweryProps {
   }
 }
 
+export const dynamic = 'force-static'
+
 export default async function ShowBreweryPage({
   params: { breweryId },
 }: ShowBreweryProps) {
