@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import React, { useImperativeHandle, useRef } from 'react'
 import { Input } from './input'
 import { Button } from './button'
@@ -50,7 +49,7 @@ const BrewerySearch = ({
         onClick={onClickHandler}
       >
         {loading ? (
-          <ThreeDotsAnimated className="fill-primary-foreground" r={24} />
+          <ThreeDotsAnimated className="fill-primary-foreground" width={24} />
         ) : (
           <Search />
         )}

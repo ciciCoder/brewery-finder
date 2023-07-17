@@ -7,9 +7,8 @@ interface BreweryMapProps {
   center: google.maps.LatLngLiteral
 }
 export default function BreweryMap({ center }: BreweryMapProps) {
-  const id = useId()
   const { isLoaded } = useJsApiLoader({
-    id: id + 'google-map-script',
+    id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyB7oJjdnu_EN9MAoGRKnr6cqM-jd55iZ5Q',
   })
 

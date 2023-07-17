@@ -9,7 +9,7 @@ import { useQuery } from 'react-query'
 
 export default function WishlistPage() {
   const wishlists = useAppSelector((state) => state.wishlist)
-  const { data, isLoading } = useQuery('breweries', () =>
+  const { data, isLoading } = useQuery('brewery-wishlist', () =>
     fetchBreweryByIds({ ids: wishlists }),
   )
 

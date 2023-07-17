@@ -1,10 +1,12 @@
-<h1>What's New (1.2)</h1>
+<h1>Bugfix 1.2.1</h1>
+- changed code from ssr to csr
+<h1>Release(1.2)</h1>
 
 - Added wishlist
 - Added wishlist search filter
 - updated brewery final design
 
-<h1>What's New (1.1)</h1>
+<h1>Release (1.1)</h1>
 
 - Added brewery view
 - Added brewery mapping
