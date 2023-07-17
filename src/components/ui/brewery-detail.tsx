@@ -78,7 +78,7 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
           <BreweryField
             label="Company Name"
-            className="animate__animated animate__fadeInLeft"
+            className="animate__animated animate__fadeInLeft sm:hidden"
             fieldValue={data.name}
             labelIcon={<Factory />}
             style={{ animationDelay: '0.1s' }}

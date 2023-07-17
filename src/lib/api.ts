@@ -18,6 +18,7 @@ export const fetchBrewery = async ({ query, page }: FetchBreweryProps) => {
     : `https://api.openbrewerydb.org/v1/breweries?${params}`
   const res = await fetch(url, {
     method: 'GET',
+    next: { revalidate: 10 },
   })
   const data = (await res.json()) as Brewery[]
   return data ?? []
@@ -33,6 +34,7 @@ export const fetchBreweryByIds = async ({ ids }: FetchBreweryByIdsProps) => {
   const url = `https://api.openbrewerydb.org/v1/breweries?${params}`
   const res = await fetch(url, {
     method: 'GET',
+    next: { revalidate: 10 },
   })
   const data = (await res.json()) as Brewery[]
   return data
@@ -40,7 +42,7 @@ export const fetchBreweryByIds = async ({ ids }: FetchBreweryByIdsProps) => {
 
 export const fetchOneBrewery = async (breweryId: string) => {
   const url = `https://api.openbrewerydb.org/v1/breweries/${breweryId}`
-  const res = await fetch(url, { method: 'GET' })
+  const res = await fetch(url, { method: 'GET', next: { revalidate: 10 } })
   const data = (await res.json()) as BreweryDetail
   if (!data) throw new Error('brewery found')
   return data
