@@ -1,27 +1,17 @@
 'use client'
 
-import React, { useEffect, useMemo, useReducer, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useReducer } from 'react'
 import BrewerySearch from './brewery-search'
 import BreweryCard from './brewery-card'
 import { Button } from './button'
-import { useRouter, useSearchParams } from 'next/navigation'
-import ThreeDotsAnimated from '../svg/three-dots-animated'
 import { useAppSelector } from '@/redux/store'
-import Link from 'next/link'
-
-export interface Brewery {
-  id: string
-  name: string
-  brewery_type: string
-  address_1: string
-  city: string
-  state_province: string
-  country: string
-  website_url: string
-}
+import { useSearchParams } from 'react-router-dom'
+import ThreeDotsAnimated from '../svg/three-dots-animated'
+import { Brewery } from '@/api/brewery.api'
 
 export interface BreweryListProps {
   list: Brewery[]
+  loading: boolean
 }
 
 type LoadingState = {
@@ -30,61 +20,59 @@ type LoadingState = {
   search: boolean
 }
 
-function BreweryList({ list }: BreweryListProps) {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [loading, setLoading] = useReducer(
+function BreweryList({ list, loading }: BreweryListProps) {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const wishlist = useAppSelector((state) => state.wishlist)
+  const wishlistSet = useMemo(() => new Set([...wishlist]), [wishlist])
+  const [loadingStates, setLoadingStates] = useReducer(
     (prev: LoadingState, next: { [key in keyof LoadingState]?: boolean }) => ({
       ...prev,
       ...next,
     }),
-    {
-      next: false,
-      prev: false,
-      search: false,
-    },
+    { next: false, prev: false, search: false },
   )
-  const wishlist = useAppSelector((state) => state.wishlist)
-  const wishlistSet = useMemo(() => new Set([...wishlist]), [wishlist])
-
-  const queryParams = new URLSearchParams(searchParams.toString())
-  const query = searchParams.get('query') ?? ''
-  const page = Number(searchParams.get('page') ?? 1)
 
   const getBreweryAddress = (brewery: Brewery) =>
     [brewery.address_1, brewery.city, brewery.state_province, brewery.country]
       .filter((item) => item)
       .join(', ')
 
-  const isLoading = (Object.keys(loading) as Array<keyof typeof loading>).some(
-    (item) => loading[item],
-  )
+  const page = Number(searchParams.get('page'))
+  const query = searchParams.get('query') as string
+
   const handleNext = () => {
-    if (isLoading) return
-    setLoading({ next: true })
-    queryParams.set('page', String(page + 1))
-    router.push(`/?${queryParams}`)
+    if (loading) return
+    setLoadingStates({ next: true })
+    setSearchParams((prev) => {
+      prev.set('page', String(page + 1))
+      return prev
+    })
   }
 
   const handlePrev = () => {
-    if (isLoading) return
-    setLoading({ prev: true })
-    queryParams.set('page', String(page - 1))
-    router.push(`/?${queryParams}`)
+    if (loading) return
+    setLoadingStates({ prev: true })
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      next.set('page', String(page - 1))
+      return next
+    })
   }
 
   const handleSearch = (searchVal: string) => {
-    if (isLoading) return
+    if (loading) return
     if (searchVal === searchParams.get('query')) return
-    queryParams.set('page', '1')
-    queryParams.set('query', searchVal)
-    if (!searchVal) queryParams.delete('query')
-    setLoading({ search: true })
-    router.push(`/?${queryParams}`)
+    setLoadingStates({ search: true })
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      next.set('query', searchVal)
+      next.set('page', '1')
+      return next
+    })
   }
 
   useEffect(() => {
-    setLoading({ prev: false, next: false, search: false })
+    setLoadingStates({ prev: false, next: false, search: false })
   }, [list])
 
   const loaderSVG = (text: string, loading: boolean) =>
@@ -101,18 +89,18 @@ function BreweryList({ list }: BreweryListProps) {
           <BrewerySearch
             value={query}
             onClick={handleSearch}
-            loading={loading.search}
+            loading={loadingStates.search}
           />
         </div>
         <div className="flex gap-1">
           {list.length >= 8 && (
             <Button className="btn btn-primary" onClick={handleNext}>
-              {loaderSVG('Next', loading.next)}
+              {loaderSVG('Next', loadingStates.next)}
             </Button>
           )}
           {page > 1 && (
             <Button className="btn btn-primary" onClick={handlePrev}>
-              {loaderSVG('Prev', loading.prev)}
+              {loaderSVG('Prev', loadingStates.prev)}
             </Button>
           )}
         </div>

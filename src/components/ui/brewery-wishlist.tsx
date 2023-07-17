@@ -1,37 +1,14 @@
 'use client'
 
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState,
-} from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import BrewerySearch from './brewery-search'
 import BreweryCard from './brewery-card'
 import { useAppSelector } from '@/redux/store'
 import 'animate.css'
-
-export interface Brewery {
-  id: string
-  name: string
-  brewery_type: string
-  address_1: string
-  city: string
-  state_province: string
-  country: string
-  website_url: string
-}
+import { Brewery } from '@/api/brewery.api'
 
 export interface BreweryWishlistProps {
   list: Brewery[]
-}
-
-type LoadingState = {
-  next: boolean
-  prev: boolean
-  search: boolean
 }
 
 function BreweryWishlist({ list }: BreweryWishlistProps) {

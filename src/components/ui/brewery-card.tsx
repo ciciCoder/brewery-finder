@@ -1,12 +1,11 @@
 'use client'
-import React, { useMemo } from 'react'
-import Link from 'next/link'
 import { Globe, Star } from 'lucide-react'
-import { useAppDispatch, useAppSelector } from '@/redux/store'
+import { useAppDispatch } from '@/redux/store'
 import { addWish, removeWish } from '@/redux/slices/wishlist.slice'
 import { cx } from 'class-variance-authority'
 import { TooltipTrigger } from '@radix-ui/react-tooltip'
 import { Tooltip, TooltipContent } from './tooltip'
+import { NavLink } from 'react-router-dom'
 
 export function BreweryCardField({
   label,
@@ -69,9 +68,9 @@ function BreweryCard({
           <a href={url} className="btn btn-primary">
             <Globe />
           </a>
-          <Link className="btn btn-primary" href={`/breweries/${id}`}>
+          <NavLink className="btn btn-primary" to={`/breweries/${id}`}>
             Detail
-          </Link>
+          </NavLink>
         </div>
         <Tooltip>
           <TooltipTrigger
