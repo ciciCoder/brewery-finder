@@ -5,14 +5,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import NavLink from '../ui/nav-link'
+import { pathJoin } from '@/lib/utils'
 
 function BreweryHeader() {
   return (
     <header className="box-border h-[80px] w-full items-center bg-primary">
       <div className="m-auto flex h-full max-w-[1440px] flex-col justify-center px-2 sm:flex-row sm:items-center sm:justify-between sm:px-[90px]">
-        <Link href="/">
-          <Image width={123} height={53} src="/brewery.svg" alt="logo" />
-        </Link>
+        <NavLink href="/">
+          <Image
+            width={123}
+            height={53}
+            src={pathJoin(process.env.APP_BASE_PATH as string, 'brewery.svg')}
+            alt="logo"
+          />
+        </NavLink>
         <nav className="flex gap-3 text-primary-foreground">
           <NavLink
             href="/"

@@ -1,20 +1,29 @@
+'use client'
+
 import BreweryList, { Brewery } from '@/components/ui/brewery-list'
 import { fetchBrewery } from '@/lib/api'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useQuery } from 'react-query'
+import HomeLoadingPage from './loading'
+import { useEffect } from 'react'
 
-interface HomeProps {
-  searchParams: {
-    page: string
-    query: string
-  }
-}
+export default function HomePage() {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const page = searchParams.get('page') ?? undefined
+  const query = searchParams.get('query') ?? undefined
+  const { data, isLoading, refetch } = useQuery('breweries', () =>
+    fetchBrewery({ page, query }),
+  )
+  useEffect(() => {
+    refetch()
+  }, [page, query, refetch, pathname])
 
-export const dynamic = 'force-static'
-
-export default async function HomePage({ searchParams }: HomeProps) {
-  const data = await fetchBrewery(searchParams)
-  return (
+  return isLoading ? (
+    <HomeLoadingPage />
+  ) : (
     <main>
-      <BreweryList list={data} />
+      <BreweryList list={data ?? []} />
     </main>
   )
 }

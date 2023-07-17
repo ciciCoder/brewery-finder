@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link'
 import React, { useMemo } from 'react'
 import Image from 'next/image'
 import { Indie_Flower, Inter, Sigmar_One } from 'next/font/google'
@@ -18,6 +17,8 @@ import {
 import BreweryField from './brewery-field'
 import 'animate.css'
 import BreweryMap from './brewery-map'
+import NavLink from './nav-link'
+import { pathJoin } from '@/lib/utils'
 
 const sigmaOne = Sigmar_One({ weight: '400', subsets: ['latin'] })
 const inter = Inter({ subsets: ['latin'] })
@@ -47,7 +48,7 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
       )}
     >
       <div className="animate__animated animate__fadeInDown relative hidden w-full items-center justify-evenly rounded-lg border border-primary bg-gradient-to-b from-blue-900 from-50% to-tertiary to-50% p-5 shadow-md sm:flex">
-        <Link
+        <NavLink
           className={cx(
             'btn-prev w-[150px] text-primary-foreground',
             indieFlower.className,
@@ -55,7 +56,7 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
           href="/"
         >
           <ArrowLeft size={100} />
-        </Link>
+        </NavLink>
         <span
           className={cx(
             'line-clamp-1 text-[64px] font-normal uppercase not-italic leading-[normal] text-transparent text-white underline drop-shadow-md',
@@ -68,7 +69,7 @@ function BreweryDetail({ data }: { data: BreweryDetail }) {
           <Image
             width={150}
             className="object-cover drop-shadow-md"
-            src="/beer.svg"
+            src={pathJoin(process.env.APP_BASE_PATH as string, 'beer.svg')}
             height={150}
             alt="beer"
           />
