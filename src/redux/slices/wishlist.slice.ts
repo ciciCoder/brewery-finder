@@ -4,12 +4,15 @@ import { PayloadAction } from '@reduxjs/toolkit/dist/createAction'
 type Wish = string
 
 function getInitialState() {
-  const result = localStorage.getItem('wishlist')
-  if (!result) return []
-  const wishlist = JSON.parse(result) as Wish[]
-  if (!Array.isArray(wishlist))
-    throw new Error(`${typeof wishlist} is incomaptible with type Wish[]`)
-  return wishlist
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const result = localStorage.getItem('wishlist')
+    if (!result) return []
+    const wishlist = JSON.parse(result) as Wish[]
+    if (!Array.isArray(wishlist))
+      throw new Error(`${typeof wishlist} is incomaptible with type Wish[]`)
+    return wishlist
+  }
+  return []
 }
 
 const setLocalWishlist = (() => {
