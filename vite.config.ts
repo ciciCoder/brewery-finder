@@ -5,8 +5,12 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base:
+    process.env.NODE_ENV === 'production'
+      ? 'https://ciciCoder.github.io/brewery-finder/'
+      : undefined,
   plugins: [
-    react(), 
+    react(),
     //@ts-ignore
     tailwindcss(),
   ],
