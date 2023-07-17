@@ -39,7 +39,7 @@ const wishlistSlice = createSlice({
       setLocalWishlist([...newState])
       return newState
     },
-    setWishlist(state, action: PayloadAction<Wish[]>) {
+    setWishlist(_, action: PayloadAction<Wish[]>) {
       const newState = [...action.payload]
       setLocalWishlist(newState)
       return newState

@@ -1,6 +1,4 @@
-'use client'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
-import { useId, useState } from 'react'
 import ThreeDotsAnimated from '../svg/three-dots-animated'
 
 interface BreweryMapProps {
