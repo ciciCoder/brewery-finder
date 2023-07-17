@@ -1,10 +1,7 @@
-'use client'
-
-import { cx } from 'class-variance-authority'
-
 type ThreeDotsAnimatedProps = {
   circleProps?: JSX.IntrinsicElements['circle']
 } & JSX.IntrinsicElements['svg']
+
 export default function ThreeDotsAnimated({
   circleProps,
   ...attrs

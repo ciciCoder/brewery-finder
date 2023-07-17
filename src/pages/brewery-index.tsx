@@ -1,6 +1,6 @@
 import { fetchBrewery } from '@/api/brewery.api'
 import BreweryList from '@/components/ui/brewery-list'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useSearchParams } from 'react-router-dom'
 

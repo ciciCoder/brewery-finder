@@ -1,8 +1,4 @@
-'use client'
-
 import { Beer, Star } from 'lucide-react'
-import React from 'react'
-import path from 'path'
 import { cx } from 'class-variance-authority'
 import { NavLink } from 'react-router-dom'
 

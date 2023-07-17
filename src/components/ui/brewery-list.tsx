@@ -1,6 +1,4 @@
-'use client'
-
-import React, { useEffect, useMemo, useReducer } from 'react'
+import { useEffect, useMemo, useReducer } from 'react'
 import BrewerySearch from './brewery-search'
 import BreweryCard from './brewery-card'
 import { Button } from './button'

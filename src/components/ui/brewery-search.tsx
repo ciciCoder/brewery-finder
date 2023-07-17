@@ -1,6 +1,4 @@
-'use client'
-
-import React, { useImperativeHandle, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Input } from './input'
 import { Button } from './button'
 import { Search } from 'lucide-react'
@@ -25,11 +23,11 @@ const BrewerySearch = ({
 }: BrewerySearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const onChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onChangeHandler: React.ChangeEventHandler<HTMLInputElement> = () => {
     onChange?.(inputRef?.current?.value ?? '')
   }
 
-  const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+  const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = () => {
     onClick?.(inputRef?.current?.value ?? '')
   }
 
