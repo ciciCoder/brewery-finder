@@ -1,5 +1,3 @@
-'use client'
-import React, { useMemo } from 'react'
 import { cx } from 'class-variance-authority'
 import {
   Beer,

@@ -1,7 +1,6 @@
 import { fetchOneBrewery } from '@/api/brewery.api'
 import BreweryDetail from '@/components/ui/brewery-detail'
 import LoaderUI from '@/components/ui/loader-ui'
-import React from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 

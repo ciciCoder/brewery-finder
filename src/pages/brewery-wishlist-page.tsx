@@ -2,7 +2,6 @@ import { fetchBreweryByIds } from '@/api/brewery.api'
 import BreweryWishlist from '@/components/ui/brewery-wishlist'
 import LoaderUI from '@/components/ui/loader-ui'
 import { useAppSelector } from '@/redux/store'
-import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 
 function BreweryWishlistPage() {

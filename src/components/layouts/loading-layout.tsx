@@ -1,4 +1,3 @@
-import React from 'react'
 import LoaderUI from '../ui/loader-ui'
 
 function LoadingLayout() {
