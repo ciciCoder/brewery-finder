@@ -13,6 +13,12 @@ module.exports = {
     './src/**/*.{ts,tsx}',
   ],
   theme: {
+    fontFamily: {
+      indie_flower: ['Indie Flower', 'cursive'],
+      inter: ['Inter', 'sans-serif'],
+      itim: ['Itim', 'cursive'],
+      sigma_one: ['Sigma One', 'cursive'],
+    },
     container: {
       center: true,
       padding: '2rem',

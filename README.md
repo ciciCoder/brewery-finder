@@ -1,5 +1,9 @@
+<h1>Bugfix 1.2.2</h1>
+- changed from nextjs 13 to reactjs for github deployment
+
 <h1>Bugfix 1.2.1</h1>
 - changed code from ssr to csr
+
 <h1>Release(1.2)</h1>
 
 - Added wishlist
